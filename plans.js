@@ -74,6 +74,7 @@ const PLANS = [
     info:"Volg deze stappen van boven naar onder.",
     steps:[
       {title:"Herstart eerst je iPad", note:"Zet hem volledig uit en terug aan."},
+      {title:"Controleer je opslag en updates", note:"Heb je nog genoeg opslagruimte vrij? En staan er updates klaar? Kijk na in de Instellingen of in de Jamf Student-app."},
       {title:"Open de Student-app en klik onderaan links op je naam"},
       {title:"Kijk hoelang geleden je iPad contact maakte met Jamf", note:"Dit hoort maar enkele seconden geleden te zijn."},
       {title:"Zijn dat uren of dagen? Klik dan op 'Verversen'"},
