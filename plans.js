@@ -223,6 +223,22 @@ const PLANS = [
     ]
   },
   {
+    id:"goodnotes",
+    icon:"goodnotes",
+    title:"Goodnotes",
+    sub:"Documenten verdwenen of niet zichtbaar?",
+    info:"Volg deze stappen van boven naar onder.",
+    steps:[
+      {title:"Herstart eerst je iPad", note:"Zet hem volledig uit en terug aan."},
+      {title:"Controleer of er updates klaarstaan", note:"Kijk in de Instellingen of in de Jamf Student-app of er updates zijn voor Goodnotes of je iPad."},
+      {title:"Staat Goodnotes in iCloud en ben je ingelogd met je managed Apple ID?", note:"Dat is je schoolaccount, eindigend op @leerling.sjsp.be."},
+      {title:"Staat er een filter aan die documenten verbergt?", note:"Tik op het filter-icoontje (3 horizontale streepjes die een pijl vormen) en zet het op 'Alle'."},
+      {title:"Bevat het wolkje bij je documenten een uitroepteken?", note:"Dat wijst op een probleem met de cloudopslag of synchronisatie."},
+      {title:"Nog niet opgelost en niet dringend? Maak een helpdeskticket via Smartschool"},
+      {title:"Is het wél dringend? Ga langs het ICT-lokaal tijdens de openingsuren"}
+    ]
+  },
+  {
     id:"prijzen",
     icon:"euro",
     title:"Prijzen",
