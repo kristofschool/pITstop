@@ -44,7 +44,7 @@ const PLANS = [
       {
         title:"1 — Heb je een verzekering via de school?",
         steps:[
-          {title:"Meld de herstelling aan in het ICT-lokaal", note:"Je krijgt een blaadje met info om de franchise (€60,50) te betalen."},
+          {title:"Meld de herstelling aan in het ICT-lokaal", note:"Je krijgt een blaadje met info om de franchise (€60,50) te betalen.", link:{url:"docs/waarborg-franchise_SJSP_2627_iPad.pdf", label:"Download het blaadje"}},
           {title:"Betaal de franchise van €60,50"},
           {title:"Geef je iPad af in het ICT-lokaal"},
           {title:"Je krijgt een vervang-iPad van ICT", note:"Zo kan je gewoon verder werken tijdens de herstelling."}
