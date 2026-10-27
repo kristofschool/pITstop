@@ -79,6 +79,20 @@ h1{font-family:var(--font-display);font-weight:600;font-size:32px;margin:6px 0 4
 .tile .ico svg{width:26px;height:26px;display:block}
 .tile h2{font-family:var(--font-display);font-weight:600;font-size:18px;margin:0 0 4px;letter-spacing:-.005em}
 .tile p{margin:0;font-size:13px;color:var(--muted)}
+/* Tegel die tijdelijk extra moet opvallen (featured in plans.js) */
+.tile.featured{border-color:var(--accent);animation:pulse 2.4s ease-in-out infinite}
+.tile .ico{position:relative}
+.tile .star{
+  position:absolute;top:-7px;right:-7px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:13px;line-height:22px;text-align:center;
+  box-shadow:0 0 0 2px var(--card);
+}
+@keyframes pulse{
+  0%,100%{box-shadow:var(--shadow),0 0 0 0 rgba(184,11,77,.45)}
+  50%{box-shadow:var(--shadow),0 0 0 7px rgba(184,11,77,0)}
+}
+@media (prefers-reduced-motion:reduce){.tile.featured{animation:none;box-shadow:var(--shadow),0 0 0 3px var(--accent-soft)}}
 .tile .count{
   position:absolute;top:16px;right:16px;
   font-size:12px;font-weight:600;color:var(--muted);

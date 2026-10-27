@@ -39,6 +39,11 @@ const ICONS = {
   goodnotes:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4h6l3 3v12.5a1.5 1.5 0 0 1-1.5 1.5h-7.5A1.5 1.5 0 0 1 7 19.5V5.5A1.5 1.5 0 0 1 8.5 4Z"/><path d="M14.5 4v3h3"/><circle cx="6.3" cy="7.8" r="1"/><circle cx="6.3" cy="11.3" r="1"/><circle cx="6.3" cy="14.8" r="1"/><circle cx="6.3" cy="18.3" r="1"/><line x1="10.3" y1="12" x2="15" y2="12"/><line x1="10.3" y1="15.3" x2="13.3" y2="15.3"/></svg>`
 };
 
+/* ---------- tegel extra laten opvallen tot (niet inbegrepen) de datum in 'featured' ---------- */
+function isFeatured(p){
+  return !!p.featured && new Date() < new Date(p.featured + "T00:00:00");
+}
+
 /* ---------- grid renderen ---------- */
 function renderGrid(){
   const grid = document.getElementById("grid");
@@ -51,11 +56,12 @@ function renderGrid(){
       badge = `<span class="count">${done}/${total}</span>`;
     }
     const btn = document.createElement("button");
-    btn.className = "tile";
+    const featured = isFeatured(p);
+    btn.className = "tile" + (featured ? " featured" : "");
     btn.onclick = ()=>showDetail(p.id);
     btn.innerHTML = `
       ${badge}
-      <div class="ico">${ICONS[p.icon] || p.icon}</div>
+      <div class="ico">${ICONS[p.icon] || p.icon}${featured ? `<span class="star" aria-label="Belangrijk">★</span>` : ""}</div>
       <div>
         <h2>${p.title}</h2>
         <p>${p.sub}</p>

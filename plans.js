@@ -10,6 +10,7 @@
    - Prijslijst:    type:"prices", groups:[ {title, items:[{name,price,note}]} ]
    - Optioneel info-kaartje bovenaan: info:"tekst"
    - Optioneel opvallend kaartje bovenaan: highlight:{title, items:["..."]}
+   - Optioneel tegel laten opvallen (ster + pulseren) tot een datum: featured:"JJJJ-MM-DD"
    - Link in een stap: link:{url, label} (extern) of link:{plan:"id", label} (naar andere tegel)
    ========================================================= */
 const PLANS = [
@@ -137,6 +138,7 @@ const PLANS = [
     icon:"erase",
     title:"iPad wissen",
     sub:"Lost opslag- en updateproblemen op",
+    featured:"2026-11-09",
     highlight:{
       title:"Wanneer helpt wissen?",
       items:[
