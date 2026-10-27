@@ -34,6 +34,7 @@ const ICONS = {
   settings:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1.5" y1="14" x2="6.5" y2="14"/><line x1="9.5" y1="8" x2="14.5" y2="8"/><line x1="17.5" y1="16" x2="22.5" y2="16"/></svg>`,
   lock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="11" width="17" height="10" rx="2.5"/><path d="M7.5 11V7a4.5 4.5 0 0 1 9 0v4"/></svg>`,
   euro:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 6.2A7.3 7.3 0 0 0 13.7 4.4 7.6 7.6 0 0 0 6.2 12a7.6 7.6 0 0 0 7.5 7.6 7.3 7.3 0 0 0 4.8-1.8"/><line x1="3.5" y1="10" x2="14.5" y2="10"/><line x1="3.5" y1="14" x2="12.5" y2="14"/></svg>`,
+  erase:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><polyline points="3.5 3.5 3.5 7.5 7.5 7.5"/><line x1="9.5" y1="9.5" x2="14.5" y2="14.5"/><line x1="14.5" y1="9.5" x2="9.5" y2="14.5"/></svg>`,
   apps:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.8"/></svg>`,
   goodnotes:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4h6l3 3v12.5a1.5 1.5 0 0 1-1.5 1.5h-7.5A1.5 1.5 0 0 1 7 19.5V5.5A1.5 1.5 0 0 1 8.5 4Z"/><path d="M14.5 4v3h3"/><circle cx="6.3" cy="7.8" r="1"/><circle cx="6.3" cy="11.3" r="1"/><circle cx="6.3" cy="14.8" r="1"/><circle cx="6.3" cy="18.3" r="1"/><line x1="10.3" y1="12" x2="15" y2="12"/><line x1="10.3" y1="15.3" x2="13.3" y2="15.3"/></svg>`
 };
@@ -114,7 +115,7 @@ function showDetail(id){
             <strong>${s.title}</strong>
           </div>
           ${s.note ? `<span class="note">${s.note}</span>`:""}
-          ${s.link ? `<a class="step-link" href="${s.link.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${s.link.label} ↗</a>`:""}
+          ${s.link ? stepLink(s.link) : ""}
         </div>`;
       ol.appendChild(li);
     });
@@ -124,6 +125,14 @@ function showDetail(id){
   document.getElementById("home").style.display = "none";
   document.getElementById("detail").classList.add("active");
   window.scrollTo({top:0});
+}
+
+/* ---------- link in een stap: externe url of andere tegel (plan) ---------- */
+function stepLink(l){
+  if(l.plan){
+    return `<a class="step-link" href="#" onclick="event.stopPropagation();event.preventDefault();showDetail('${l.plan}')">${l.label} →</a>`;
+  }
+  return `<a class="step-link" href="${l.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${l.label} ↗</a>`;
 }
 
 /* ---------- prijslijst renderen ---------- */

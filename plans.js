@@ -9,6 +9,7 @@
    - Met delen:     sections:[ {title, steps:[...]} ]
    - Prijslijst:    type:"prices", groups:[ {title, items:[{name,price,note}]} ]
    - Optioneel info-kaartje bovenaan: info:"tekst"
+   - Link in een stap: link:{url, label} (extern) of link:{plan:"id", label} (naar andere tegel)
    ========================================================= */
 const PLANS = [
   {
@@ -126,6 +127,40 @@ const PLANS = [
         title:"5 — Vermoed je een technisch probleem?",
         steps:[
           {title:"Breng je iPad, lader én kabel mee naar het ICT-team", note:"Zo kunnen we alles samen testen."}
+        ]
+      }
+    ]
+  },
+  {
+    id:"ipad-wissen",
+    icon:"erase",
+    title:"iPad wissen",
+    sub:"iPad terugzetten naar fabrieksinstellingen",
+    info:"Na het wissen is álles weg van je iPad. Een reservekopie maken is niet nodig: die gebruiken we nooit. Controleer daarom eerst goed of alles wat je nodig hebt in iCloud staat.",
+    sections:[
+      {
+        title:"1 — Vóór het wissen: controleer iCloud",
+        steps:[
+          {title:"Controleer of je ingelogd bent met je managed Apple ID", note:"Dat is je schoolaccount, eindigend op @leerling.sjsp.be. Kijk bovenaan in Instellingen bij je naam."},
+          {title:"Controleer of iCloud Drive aan staat", note:"Instellingen → [je naam] → iCloud → iCloud Drive."},
+          {title:"Kijk in de Bestanden-app of je documenten in iCloud Drive staan", note:"Staat iets enkel 'Op mijn iPad'? Verplaats het dan naar iCloud Drive."},
+          {title:"Controleer of je Goodnotes-documenten in iCloud staan", note:"Geen uitroepteken bij het wolkje? Dan is alles gesynchroniseerd."},
+          {title:"Kijk na of er nog andere apps zijn met bestanden die je nodig hebt", note:"Twijfel je? Vraag het eerst aan het ICT-team vóór je wist."}
+        ]
+      },
+      {
+        title:"2 — iPad wissen",
+        steps:[
+          {title:"Ga naar Instellingen → Algemeen → Zet over of stel iPad opnieuw in"},
+          {title:"Tik op 'Wis alle inhoud en instellingen'"},
+          {title:"Voer je toegangscode in en bevestig", note:"Vraagt hij ook een Apple ID-wachtwoord? Geef dan het wachtwoord van je account in."},
+          {title:"Wacht tot je iPad opnieuw opstart met het 'Hallo'-scherm", note:"Dit kan enkele minuten duren. Laat je iPad aan de lader hangen."}
+        ]
+      },
+      {
+        title:"3 — Daarna",
+        steps:[
+          {title:"Stel je iPad opnieuw in", note:"Volg het stappenplan om alles terug te configureren.", link:{plan:"ipad-configuratie", label:"Ga naar 'Nieuwe iPad instellen'"}}
         ]
       }
     ]
