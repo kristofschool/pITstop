@@ -58,7 +58,7 @@ function renderGrid(){
     const btn = document.createElement("button");
     const featured = isFeatured(p);
     btn.className = "tile" + (featured ? " featured" : "");
-    btn.onclick = ()=>showDetail(p.id);
+    btn.onclick = ()=>{ location.hash = p.id; };
     btn.innerHTML = `
       ${badge}
       <div class="ico">${ICONS[p.icon] || p.icon}${featured ? `<span class="star" aria-label="Belangrijk">★</span>` : ""}</div>
@@ -139,7 +139,7 @@ function showDetail(id){
 /* ---------- link in een stap: externe url of andere tegel (plan) ---------- */
 function stepLink(l){
   if(l.plan){
-    return `<a class="step-link" href="#" onclick="event.stopPropagation();event.preventDefault();showDetail('${l.plan}')">${l.label} →</a>`;
+    return `<a class="step-link" href="#${l.plan}" onclick="event.stopPropagation()">${l.label} →</a>`;
   }
   return `<a class="step-link" href="${l.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${l.label} ↗</a>`;
 }
@@ -169,7 +169,14 @@ function renderPrices(p){
   });
 }
 
+/* ---------- terug naar overzicht: adres zonder #tegel ---------- */
 function showHome(){
+  history.pushState(null, "", location.pathname + location.search);
+  route();
+}
+
+function renderHome(){
+  currentId = null;
   document.getElementById("detail").classList.remove("active");
   document.getElementById("home").style.display = "";
   renderGrid();
@@ -194,4 +201,32 @@ function resetCurrent(){
   showDetail(currentId);
 }
 
-renderGrid();
+/* =========================================================
+   EIGEN ADRES PER TEGEL — bv. .../pitstop/#ipad-wissen
+   Werkt ook met de terugknop van de browser en als gedeelde link.
+   ========================================================= */
+function route(){
+  const id = decodeURIComponent(location.hash.slice(1));
+  const p = PLANS.find(x=>x.id===id);
+  if(p){
+    showDetail(id);
+    track(p);
+  } else {
+    renderHome();
+  }
+}
+
+/* ---------- tellen welke tegels geopend worden (GoatCounter, zie index.html) ---------- */
+function track(p){
+  const send = ()=>{
+    if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({path: location.pathname + "#" + p.id, title: p.title});
+    }
+  };
+  // Het script laadt async: bij een rechtstreekse link is het er misschien nog niet
+  if(document.readyState === "complete") send();
+  else window.addEventListener("load", send, {once:true});
+}
+
+window.addEventListener("hashchange", route);
+route();
