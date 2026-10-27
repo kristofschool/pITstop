@@ -72,11 +72,14 @@ function showDetail(id){
   document.getElementById("d-title").textContent = p.title;
   document.getElementById("d-sub").textContent = p.sub;
 
-  // Info-kaartje
+  // Opvallend kaartje + info-kaartje
   const info = document.getElementById("d-info");
-  info.innerHTML = p.info
-    ? `<div class="info-card"><span class="info-ico">ℹ️</span><span>${p.info}</span></div>`
+  const hl = p.highlight
+    ? `<div class="highlight-card"><strong>${p.highlight.title}</strong><ul>${p.highlight.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`
     : "";
+  info.innerHTML = hl + (p.info
+    ? `<div class="info-card"><span class="info-ico">ℹ️</span><span>${p.info}</span></div>`
+    : "");
 
   document.querySelector(".progress-row").style.display = isPrices ? "none" : "";
   document.querySelector(".foot").style.display = isPrices ? "none" : "";

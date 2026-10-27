@@ -9,6 +9,7 @@
    - Met delen:     sections:[ {title, steps:[...]} ]
    - Prijslijst:    type:"prices", groups:[ {title, items:[{name,price,note}]} ]
    - Optioneel info-kaartje bovenaan: info:"tekst"
+   - Optioneel opvallend kaartje bovenaan: highlight:{title, items:["..."]}
    - Link in een stap: link:{url, label} (extern) of link:{plan:"id", label} (naar andere tegel)
    ========================================================= */
 const PLANS = [
@@ -75,7 +76,7 @@ const PLANS = [
     info:"Volg deze stappen van boven naar onder.",
     steps:[
       {title:"Herstart eerst je iPad", note:"Zet hem volledig uit en terug aan."},
-      {title:"Controleer je opslag en updates", note:"Heb je nog genoeg opslagruimte vrij? En staan er updates klaar? Kijk na in de Instellingen of in de Jamf Student-app."},
+      {title:"Controleer je opslag en updates", note:"Heb je nog genoeg opslagruimte vrij? En staan er updates klaar? Kijk na in de Instellingen of in de Jamf Student-app.", link:{plan:"ipad-wissen", label:"Opslag vol of update mislukt? Bekijk 'iPad wissen'"}},
       {title:"Open de Student-app en klik onderaan links op je naam"},
       {title:"Kijk hoelang geleden je iPad contact maakte met Jamf", note:"Dit hoort maar enkele seconden geleden te zijn."},
       {title:"Zijn dat uren of dagen? Klik dan op 'Verversen'"},
@@ -135,7 +136,15 @@ const PLANS = [
     id:"ipad-wissen",
     icon:"erase",
     title:"iPad wissen",
-    sub:"iPad terugzetten naar fabrieksinstellingen",
+    sub:"Lost opslag- en updateproblemen op",
+    highlight:{
+      title:"Wanneer helpt wissen?",
+      items:[
+        "Je opslag is vol en je krijgt geen ruimte meer vrij.",
+        "Je krijgt een fout bij het zoeken naar of installeren van iPadOS-updates.",
+        "<b>iPad 9?</b> Dan moet je je iPad waarschijnlijk wissen om te kunnen updaten naar iPadOS 27."
+      ]
+    },
     info:"Na het wissen is álles weg van je iPad. Een reservekopie maken is niet nodig: die gebruiken we nooit. Controleer daarom eerst goed of alles wat je nodig hebt in iCloud staat.",
     sections:[
       {
