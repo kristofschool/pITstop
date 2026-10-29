@@ -13,13 +13,30 @@ function flatSteps(p){
   return sectionsOf(p).reduce((a,s)=>a.concat(s.steps),[]);
 }
 
-/* ---------- state (onthouden per tegel in deze sessie) ---------- */
+/* ---------- state: afgevinkte stappen, bewaard in deze browser ---------- */
 const state = {};
 let currentId = null;
 
+// Sleutel bevat het aantal stappen: wijzigt een stappenplan, dan begint iedereen opnieuw
+function storeKey(p){
+  return "pitstop:" + p.id + ":" + flatSteps(p).length;
+}
 function ensureState(p){
-  if(!state[p.id]) state[p.id] = flatSteps(p).map(()=>false);
+  if(!state[p.id]){
+    let saved = [];
+    try{ saved = JSON.parse(localStorage.getItem(storeKey(p)) || "[]") || []; }catch(e){}
+    state[p.id] = flatSteps(p).map((_,i)=>!!saved[i]);
+  }
   return state[p.id];
+}
+function saveState(p){
+  try{ localStorage.setItem(storeKey(p), JSON.stringify(state[p.id])); }catch(e){}
+}
+
+/* ---------- deeltitel "1 — Vooraf" splitsen in nummer en tekst ---------- */
+function splitTitle(t){
+  const m = /^(\S{1,3})\s+—\s+(.*)$/.exec(t);
+  return m ? {num:m[1], text:m[2]} : {num:null, text:t};
 }
 
 /* =========================================================
@@ -35,6 +52,7 @@ const ICONS = {
   lock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="11" width="17" height="10" rx="2.5"/><path d="M7.5 11V7a4.5 4.5 0 0 1 9 0v4"/></svg>`,
   euro:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 6.2A7.3 7.3 0 0 0 13.7 4.4 7.6 7.6 0 0 0 6.2 12a7.6 7.6 0 0 0 7.5 7.6 7.3 7.3 0 0 0 4.8-1.8"/><line x1="3.5" y1="10" x2="14.5" y2="10"/><line x1="3.5" y1="14" x2="12.5" y2="14"/></svg>`,
   erase:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><polyline points="3.5 3.5 3.5 7.5 7.5 7.5"/><line x1="9.5" y1="9.5" x2="14.5" y2="14.5"/><line x1="14.5" y1="9.5" x2="9.5" y2="14.5"/></svg>`,
+  restore:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="2.5" width="15" height="19" rx="2.5"/><line x1="11" y1="18.5" x2="13" y2="18.5"/><path d="M15 10.5a3 3 0 1 1-1-2.2"/><polyline points="14.5 6 14.5 8.6 11.9 8.6"/></svg>`,
   apps:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.8"/></svg>`,
   goodnotes:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4h6l3 3v12.5a1.5 1.5 0 0 1-1.5 1.5h-7.5A1.5 1.5 0 0 1 7 19.5V5.5A1.5 1.5 0 0 1 8.5 4Z"/><path d="M14.5 4v3h3"/><circle cx="6.3" cy="7.8" r="1"/><circle cx="6.3" cy="11.3" r="1"/><circle cx="6.3" cy="14.8" r="1"/><circle cx="6.3" cy="18.3" r="1"/><line x1="10.3" y1="12" x2="15" y2="12"/><line x1="10.3" y1="15.3" x2="13.3" y2="15.3"/></svg>`
 };
@@ -71,7 +89,7 @@ function renderGrid(){
 }
 
 /* ---------- detail renderen ---------- */
-function showDetail(id){
+function showDetail(id, keepScroll){
   currentId = id;
   const p = PLANS.find(x=>x.id===id);
   const isPrices = p.type==="prices";
@@ -83,9 +101,19 @@ function showDetail(id){
   const hl = p.highlight
     ? `<div class="highlight-card"><strong>${p.highlight.title}</strong><ul>${p.highlight.items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`
     : "";
+  const prep = p.prep
+    ? `<ul class="prep">${p.prep.map(x=>`<li><b>${x.title}</b>${x.text}</li>`).join("")}</ul>`
+    : "";
   info.innerHTML = hl + (p.info
-    ? `<div class="info-card"><span class="info-ico">ℹ️</span><span>${p.info}</span></div>`
-    : "");
+    ? `<div class="info-card">${p.info}</div>`
+    : "") + prep;
+
+  // Hulpblok onderaan
+  document.getElementById("d-help").innerHTML = p.help
+    ? `<div class="help-card"><strong>${p.help.title}</strong><p>${p.help.text}</p></div>`
+    : "";
+
+  renderQr(id);
 
   document.querySelector(".progress-row").style.display = isPrices ? "none" : "";
   document.querySelector(".foot").style.display = isPrices ? "none" : "";
@@ -105,12 +133,9 @@ function showDetail(id){
   const ol = document.getElementById("d-steps");
   ol.innerHTML = "";
   let gi = 0;
-  sectionsOf(p).forEach(section=>{
+  sectionsOf(p).forEach((section,si)=>{
     if(section.title){
-      const h = document.createElement("li");
-      h.className = "section-head";
-      h.innerHTML = `<span>${section.title}</span>`;
-      ol.appendChild(h);
+      ol.appendChild(sectionHead(section.title, section.intro, si));
     }
     section.steps.forEach((s,localI)=>{
       const idx = gi++;
@@ -124,16 +149,65 @@ function showDetail(id){
             <strong>${s.title}</strong>
           </div>
           ${s.note ? `<span class="note">${s.note}</span>`:""}
+          ${s.warn ? `<span class="warn">${s.warn}</span>`:""}
           ${s.link ? stepLink(s.link) : ""}
         </div>`;
       ol.appendChild(li);
     });
   });
 
+  renderSectionNav(p);
   updateProgress();
   document.getElementById("home").style.display = "none";
   document.getElementById("detail").classList.add("active");
-  window.scrollTo({top:0});
+  if(!keepScroll) window.scrollTo({top:0});
+}
+
+/* ---------- kop van een deel: genummerd blok + titel + optionele uitleg ---------- */
+function sectionHead(title, intro, si){
+  const t = splitTitle(title);
+  const h = document.createElement("li");
+  h.className = "section-head";
+  if(si !== undefined) h.id = "sec-" + si;
+  h.innerHTML = `
+    ${t.num ? `<span class="phase-num">${t.num}</span>` : ""}
+    <div>
+      <span class="phase-title">${t.text}</span>
+      ${intro ? `<span class="phase-intro">${intro}</span>` : ""}
+    </div>`;
+  return h;
+}
+
+/* ---------- bolletjes per deel in de voortgangsbalk (groen = deel klaar) ---------- */
+function renderSectionNav(p){
+  const nav = document.getElementById("d-nav");
+  nav.innerHTML = "";
+  const secs = sectionsOf(p);
+  if(secs.length < 2) return;
+  let gi = 0;
+  secs.forEach((section,si)=>{
+    const from = gi; gi += section.steps.length;
+    const done = state[p.id].slice(from, gi).every(Boolean);
+    const t = splitTitle(section.title || "");
+    const b = document.createElement("button");
+    b.className = "sec-dot" + (done ? " done" : "");
+    b.textContent = done ? "✓" : (t.num || si+1);
+    b.title = t.text;
+    b.setAttribute("aria-label", "Ga naar deel: " + t.text);
+    b.onclick = ()=>document.getElementById("sec-"+si).scrollIntoView({behavior:"smooth", block:"start"});
+    nav.appendChild(b);
+  });
+}
+
+/* ---------- QR-code naar deze tegel, enkel zichtbaar op de afdruk ---------- */
+function renderQr(id){
+  const box = document.getElementById("d-qr");
+  box.innerHTML = "";
+  if(!window.qrcode) return;
+  const qr = window.qrcode(0, "M");
+  qr.addData(location.href.split("#")[0] + "#" + id);
+  qr.make();
+  box.innerHTML = qr.createSvgTag({cellSize:3, margin:0}) + "<small>Scan voor de online versie</small>";
 }
 
 /* ---------- link in een stap: externe url of andere tegel (plan) ---------- */
@@ -149,12 +223,7 @@ function renderPrices(p){
   const ol = document.getElementById("d-steps");
   ol.innerHTML = "";
   (p.groups || []).forEach(g=>{
-    if(g.title){
-      const h = document.createElement("li");
-      h.className = "section-head";
-      h.innerHTML = `<span>${g.title}</span>`;
-      ol.appendChild(h);
-    }
+    if(g.title) ol.appendChild(sectionHead(g.title));
     g.items.forEach(it=>{
       const li = document.createElement("li");
       li.className = "price-row";
@@ -185,7 +254,8 @@ function renderHome(){
 
 function toggleStep(i){
   state[currentId][i] = !state[currentId][i];
-  showDetail(currentId);
+  saveState(PLANS.find(x=>x.id===currentId));
+  showDetail(currentId, true);
 }
 
 function updateProgress(){
@@ -198,6 +268,7 @@ function updateProgress(){
 
 function resetCurrent(){
   state[currentId] = state[currentId].map(()=>false);
+  saveState(PLANS.find(x=>x.id===currentId));
   showDetail(currentId);
 }
 

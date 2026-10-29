@@ -41,16 +41,21 @@
       <button class="print-btn" onclick="window.print()">🖨️ Print / PDF</button>
     </div>
     <div class="detail-head">
-      <div class="eyebrow" id="d-eyebrow"></div>
-      <h1 id="d-title"></h1>
-      <div class="sub" id="d-sub"></div>
-      <div class="progress-row">
-        <div class="bar"><i id="d-bar"></i></div>
-        <div class="prog-label" id="d-prog"></div>
+      <div>
+        <div class="eyebrow" id="d-eyebrow"></div>
+        <h1 id="d-title"></h1>
+        <div class="sub" id="d-sub"></div>
       </div>
+      <div class="qr" id="d-qr"></div>
+    </div>
+    <div class="progress-row">
+      <nav class="sec-nav" id="d-nav"></nav>
+      <div class="bar"><i id="d-bar"></i></div>
+      <div class="prog-label" id="d-prog"></div>
     </div>
     <div id="d-info"></div>
     <ol class="steps" id="d-steps"></ol>
+    <div id="d-help"></div>
     <div class="foot">
       <button class="reset" onclick="resetCurrent()">Alles terugzetten</button>
     </div>
@@ -60,6 +65,8 @@
 
 <!-- Stappenplannen toevoegen/wijzigen? Enkel plans.js aanpassen. -->
 <script src="plans.js"></script>
+<!-- QR-code op de afdruk -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <!-- Bezoekstatistieken zonder cookies: https://pitstop-sjsp.goatcounter.com -->
 <script data-goatcounter="https://pitstop-sjsp.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script src="app.js"></script>

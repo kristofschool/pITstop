@@ -6,8 +6,12 @@
   --ink:#1b1620;
   --muted:#6f6670;
   --line:#ece4e8;
-  --accent:#b80b4d;          /* SJSP-framboos */
-  --accent-soft:#fce4ee;
+  --accent:#7f1734;          /* bordeaux */
+  --accent-dark:#62102a;
+  --accent-soft:#f6e6eb;
+  --accent-line:#e8c9d3;
+  --warn:#f2b632;            /* geel = let op */
+  --warn-soft:#fff6dc;
   --done:#16a34a;            /* groen = afgevinkt (succes) */
   --done-soft:#e9f8ee;
   --font-display:"Cal Sans","DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -39,7 +43,7 @@ h1{font-family:var(--font-display);font-weight:600;font-size:32px;margin:6px 0 4
   transition:transform .2s ease, box-shadow .2s ease;
 }
 .brand-logo svg{width:27px;height:27px;display:block;transition:transform .5s ease}
-.brand-logo:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(184,11,77,.28)}
+.brand-logo:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(127,23,52,.28)}
 .brand-logo:hover svg{transform:rotate(90deg)}       /* wiel draait even mee */
 .brand-logo:focus-visible{outline:3px solid var(--accent-soft);outline-offset:2px}
 
@@ -68,7 +72,7 @@ h1{font-family:var(--font-display);font-weight:600;font-size:32px;margin:6px 0 4
   min-width:0;               /* laat de tegel krimpen zodat 1fr niet opblaast */
   overflow-wrap:anywhere;    /* lange woorden breken netjes af */
 }
-.tile:hover{transform:translateY(-3px);box-shadow:0 4px 8px rgba(20,30,60,.08),0 16px 40px rgba(20,30,60,.12);border-color:#cfd8ec}
+.tile:hover{transform:translateY(-3px);box-shadow:0 4px 8px rgba(27,22,32,.08),0 16px 40px rgba(27,22,32,.12);border-color:var(--accent-line)}
 .tile:focus-visible{outline:3px solid var(--accent-soft);outline-offset:2px}
 .tile .ico{
   width:52px;height:52px;border-radius:14px;
@@ -89,8 +93,8 @@ h1{font-family:var(--font-display);font-weight:600;font-size:32px;margin:6px 0 4
   box-shadow:0 0 0 2px var(--card);
 }
 @keyframes pulse{
-  0%,100%{box-shadow:var(--shadow),0 0 0 0 rgba(184,11,77,.45)}
-  50%{box-shadow:var(--shadow),0 0 0 7px rgba(184,11,77,0)}
+  0%,100%{box-shadow:var(--shadow),0 0 0 0 rgba(127,23,52,.45)}
+  50%{box-shadow:var(--shadow),0 0 0 7px rgba(127,23,52,0)}
 }
 @media (prefers-reduced-motion:reduce){.tile.featured{animation:none;box-shadow:var(--shadow),0 0 0 3px var(--accent-soft)}}
 .tile .count{
@@ -119,34 +123,60 @@ h1{font-family:var(--font-display);font-weight:600;font-size:32px;margin:6px 0 4
   padding:9px 18px;cursor:pointer;font:inherit;font-weight:600;font-size:14px;
   box-shadow:var(--shadow);
 }
-.print-btn:hover{background:#2f5fd8}
+.print-btn:hover{background:var(--accent-dark)}
 
-.detail-head{margin-bottom:20px}
+.detail-head{margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
 .detail-head h1{margin:6px 0 6px}
-.progress-row{display:flex;align-items:center;gap:12px;margin-top:10px}
+.qr{display:none}           /* enkel op de afdruk */
+
+/* Voortgangsbalk blijft bovenaan staan tijdens het scrollen */
+.progress-row{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;
+  margin:0 -20px 18px;padding:10px 20px;
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.sec-nav{display:flex;gap:6px;flex-wrap:wrap}
+.sec-dot{
+  width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--accent-soft);color:var(--accent);
+  font:inherit;font-weight:700;font-size:14px;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s ease;
+}
+.sec-dot:hover{background:var(--accent-line)}
+.sec-dot.done{background:var(--done);color:#fff}
+.sec-dot:focus-visible{outline:3px solid var(--accent-line);outline-offset:2px}
 .bar{flex:1;height:8px;background:var(--line);border-radius:999px;overflow:hidden}
 .bar > i{display:block;height:100%;width:0;background:var(--done);border-radius:999px;transition:width .25s ease}
 .prog-label{font-size:13px;color:var(--muted);font-weight:600;min-width:74px;text-align:right}
 
 /* Checklist */
 ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+/* Kop van een deel: genummerd blok in accentkleur + titel + uitleg */
 li.section-head{
-  list-style:none;margin:14px 0 2px;padding:0;
-  font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--accent);display:flex;align-items:center;gap:10px;
+  list-style:none;margin:26px 0 4px;padding:0;
+  display:flex;align-items:center;gap:14px;
+  scroll-margin-top:70px;   /* niet verstoppen achter de voortgangsbalk */
 }
-li.section-head:first-child{margin-top:0}
-li.section-head span{white-space:nowrap}
-li.section-head::after{content:"";flex:1;height:1px;background:var(--line)}
+li.section-head:first-child{margin-top:4px}
+.phase-num{
+  flex:none;width:46px;height:46px;border-radius:13px;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:24px;
+}
+.phase-title{display:block;font-family:var(--font-display);font-weight:600;font-size:21px;line-height:1.2;color:var(--ink)}
+.phase-intro{display:block;font-size:14px;color:var(--muted);margin-top:2px}
 li.step{
   background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:14px 16px;display:flex;gap:14px;align-items:flex-start;
   cursor:pointer;box-shadow:var(--shadow);transition:border-color .15s ease, background .15s ease;
 }
-li.step:hover{border-color:#cfd8ec}
+li.step:hover{border-color:var(--accent-line)}
 li.step .num{
   flex:none;width:30px;height:30px;border-radius:50%;
-  border:2px solid var(--line);color:var(--muted);
+  border:2px solid var(--accent-soft);background:var(--accent-soft);color:var(--accent);
   display:flex;align-items:center;justify-content:center;
   font-weight:700;font-size:14px;transition:all .15s ease;
 }
@@ -154,12 +184,17 @@ li.step .body{flex:1;padding-top:2px}
 li.step .body-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 li.step .body strong{display:block;font-size:15px;margin-bottom:2px}
 li.step .body .note{display:block;font-size:13.5px;color:var(--muted)}
+li.step .body .note b{color:var(--ink)}
+li.step .body .warn{
+  display:block;margin-top:8px;padding:7px 11px;font-size:13.5px;
+  background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:0 8px 8px 0;
+}
 li.step .body .step-link{
   display:inline-flex;align-items:center;gap:4px;margin-top:8px;
   font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;
   background:var(--accent-soft);border-radius:8px;padding:5px 10px;
 }
-li.step .body .step-link:hover{background:#dde8ff;text-decoration:underline}
+li.step .body .step-link:hover{background:var(--accent-line);text-decoration:underline}
 li.step.done{background:var(--done-soft);border-color:#bfe8cc}
 li.step.done .num{background:var(--done);border-color:var(--done);color:#fff}
 li.step.done .body strong{text-decoration:line-through;color:var(--muted)}
@@ -176,11 +211,21 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
 
 /* Info-kaartje bovenaan een detail (bv. openingsuren ICT) */
 .info-card{
-  background:var(--accent-soft);border:1px solid #d6e2ff;border-radius:14px;
-  padding:14px 16px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start;
-  font-size:14px;color:#1e3a8a;
+  background:var(--card);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;
+  padding:13px 16px;margin-bottom:14px;font-size:14.5px;box-shadow:var(--shadow);
 }
-.info-card .info-ico{font-size:20px;line-height:1}
+.info-card a{color:var(--accent);font-weight:600}
+
+/* Kaartjes 'vooraf' naast elkaar */
+.prep{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px;padding:0;list-style:none}
+.prep li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--muted);box-shadow:var(--shadow)}
+.prep li b{display:block;font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--ink);margin-bottom:2px}
+
+/* Hulpblok onderaan */
+.help-card{background:var(--accent);color:#fff;border-radius:18px;padding:18px 20px;margin-top:24px;box-shadow:var(--shadow)}
+.help-card strong{display:block;font-family:var(--font-display);font-weight:600;font-size:20px}
+.help-card p{margin:4px 0 0;font-size:15px}
+.help-card a{color:#fff}
 .highlight-card{
   background:var(--accent);color:#fff;border-radius:14px;box-shadow:var(--shadow);
   padding:16px 18px;margin-bottom:14px;font-size:15px;
@@ -194,7 +239,7 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
   background:none;border:1px solid var(--line);border-radius:999px;
   padding:8px 18px;cursor:pointer;font:inherit;font-size:13px;color:var(--muted);
 }
-.reset:hover{border-color:#cfd8ec;color:var(--ink)}
+.reset:hover{border-color:var(--accent-line);color:var(--ink)}
 
 /* ===== Middengebied (tablet / klein venster): hou 3 tegels aan =====
    Zo klappen we niet te vroeg naar 2 grote tegels. */
@@ -215,6 +260,9 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   /* Ondertitel op 1 regel, ingekort met … zodat alles in het vierkant past */
   .tile p{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prep{grid-template-columns:1fr}
+  .progress-row{flex-wrap:wrap}
+  .sec-nav{width:100%}
 }
 
 /* ===== Print / PDF ===== */
@@ -224,12 +272,20 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
   .wrap{max-width:none;padding:0}
   .detail-topbar,.progress-row,.foot,.eyebrow{display:none !important}
   .detail-head{margin-bottom:14px;border-bottom:2px solid #000;padding-bottom:10px}
+  .qr{display:block;width:3.2cm;flex:none;text-align:center}
+  .qr svg{display:block;width:100%;height:auto}
+  .qr small{display:block;font-size:8pt;line-height:1.2;margin-top:3px}
+  .prep li,.help-card{box-shadow:none;border:1px solid #999;background:#fff !important;color:#000 !important}
+  .prep li,.prep li b{color:#000}
+  .help-card{break-inside:avoid}
+  .phase-num,li.step .body .warn{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  li.section-head{margin:14px 0 4px;break-after:avoid}
+  .phase-num{width:30px;height:30px;font-size:17px;border-radius:8px}
+  .phase-title{font-size:15pt}
   #d-title{font-size:24px}
   .highlight-card{border:2px solid #000;background:#fff !important;color:#000 !important;box-shadow:none}
-  .info-card{border:1px solid #999;background:#fff !important;color:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .info-card{border:1px solid #999;border-left:5px solid #000;box-shadow:none;background:#fff !important;color:#000 !important}
   ol.steps{gap:6px}
-  li.section-head{color:#000 !important;margin:12px 0 4px;break-after:avoid}
-  li.section-head::after{background:#000}
   li.step{
     box-shadow:none;border:1px solid #999;border-radius:8px;
     padding:10px 12px;break-inside:avoid;background:#fff !important;
