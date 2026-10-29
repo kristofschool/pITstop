@@ -195,6 +195,14 @@ li.step .body .step-link{
   background:var(--accent-soft);border-radius:8px;padding:5px 10px;
 }
 li.step .body .step-link:hover{background:var(--accent-line);text-decoration:underline}
+/* Stap die niet over het hoofd gezien mag worden */
+li.step.important{border:2px solid var(--warn);background:var(--warn-soft)}
+li.step.important .num{background:var(--warn);border-color:var(--warn);color:var(--ink)}
+li.step.important .body strong{font-size:16px}
+.tag-important{
+  display:inline-block;margin-bottom:4px;padding:2px 8px;border-radius:999px;
+  background:var(--warn);color:var(--ink);font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
 li.step.done{background:var(--done-soft);border-color:#bfe8cc}
 li.step.done .num{background:var(--done);border-color:var(--done);color:#fff}
 li.step.done .body strong{text-decoration:line-through;color:var(--muted)}
@@ -291,6 +299,8 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
     padding:10px 12px;break-inside:avoid;background:#fff !important;
   }
   li.step.done{background:#fff !important;border-color:#999 !important}
+  li.step.important{border:2px solid #000 !important}
+  .tag-important{border:1px solid #000;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   li.step .num{
     border:2px solid #000 !important;background:#fff !important;color:#000 !important;
     border-radius:4px;width:22px;height:22px;font-size:0;

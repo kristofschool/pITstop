@@ -13,6 +13,7 @@
    - Optioneel kaartjes 'vooraf' naast elkaar: prep:[ {title, text} ]
    - Optioneel uitleg onder de titel van een deel: sections:[ {title, intro, steps} ]
    - Optioneel gele waarschuwing in een stap: warn:"tekst"
+   - Optioneel stap extra laten opvallen (gele rand + 'Belangrijk'): important:true
    - Optioneel hulpblok onderaan: help:{title, text}
    - Titel van een deel als "1 — Titel" toont het nummer in een gekleurd blok
    - Optioneel tegel laten opvallen (ster + pulseren) tot een datum: featured:"JJJJ-MM-DD"
@@ -211,9 +212,10 @@ const PLANS = [
         steps:[
           {title:"Kies je taal en je land of regio", note:"Je iPad start op met het 'Hallo'-scherm."},
           {title:"Kies 'Configureer zonder ander apparaat'"},
-          {title:"Maak verbinding met je wifi", note:"Je iPad maakt contact met Apple, wordt geactiveerd en haalt de instellingen van school op."},
-          {title:"Bij 'Zet je apps en gegevens over': kies dat je niets overzet"},
+          {title:"Maak verbinding met je wifi", note:"Je iPad maakt nu verbinding met de servers van Apple, activeert je iPad en haalt de configuratie op."},
+          {title:"Bij 'Zet je apps en gegevens over': ZET NIETS OVER", important:true, note:"Kies <b>niet</b> om apps of gegevens over te zetten, ook niet van een reservekopie."},
           {title:"Bij 'Extern beheer': tik op 'Schrijf deze iPad in'"},
+          {title:"Log in met je schoolaccount via Google", note:"Je schoolmail (<b>@leerling.sjsp.be</b>) en je schoolwachtwoord. Verschijnt er een QR-code? Kijk bij 'Inloggen met Google' bovenaan."},
           {title:"Zet Locatievoorzieningen aan en tik op 'Ga door' tot je op het beginscherm komt"}
         ]
       },

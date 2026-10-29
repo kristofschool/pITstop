@@ -140,11 +140,12 @@ function showDetail(id, keepScroll){
     section.steps.forEach((s,localI)=>{
       const idx = gi++;
       const li = document.createElement("li");
-      li.className = "step" + (state[id][idx] ? " done":"");
+      li.className = "step" + (s.important ? " important":"") + (state[id][idx] ? " done":"");
       li.onclick = ()=>toggleStep(idx);
       li.innerHTML = `
         <div class="num">${state[id][idx] ? "✓" : (localI+1)}</div>
         <div class="body">
+          ${s.important ? `<span class="tag-important">Belangrijk</span>` : ""}
           <div class="body-top">
             <strong>${s.title}</strong>
           </div>
