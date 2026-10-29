@@ -287,20 +287,25 @@ li.price-row .p-amount{flex:none;font-weight:800;font-size:18px;color:var(--ink)
   .wrap{max-width:none;padding:0}
   .detail-topbar,.progress-row,.foot,.eyebrow{display:none !important}
   .detail-head{margin-bottom:14px;border-bottom:2px solid #000;padding-bottom:10px}
-  .qr{display:block;width:3.2cm;flex:none;text-align:center}
-  .qr svg{display:block;width:100%;height:auto}
-  .qr small{display:block;font-size:8pt;line-height:1.2;margin-top:3px}
+  .qr{display:block;width:2.2cm;flex:none;text-align:center}
+  .qr svg{display:block;width:1.6cm;height:auto;margin:0 auto}
+  .qr small{display:block;font-size:6.5pt;line-height:1.2;margin-top:3px}
   .prep li,.help-card{box-shadow:none;border:1px solid #999;background:#fff !important;color:#000 !important}
   .prep li,.prep li b{color:#000}
   .help-card{break-inside:avoid}
   .phase-num,li.step .body .warn{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  li.section-head{margin:14px 0 4px;break-after:avoid}
+  /* Blok i.p.v. flex: 'break-after:avoid' wordt zo betrouwbaar gevolgd */
+  ol.steps{display:block}
+  ol.steps > li{margin:0 0 6px}
+  ol.steps > li.section-head{margin:14px 0 4px;break-inside:avoid}
+  /* Kop niet alleen onderaan een blad — behalve als app.js 'print-loose' zet
+     omdat dat een blad uitspaart (bv. 1 recto-verso i.p.v. 3 bladzijden) */
+  html:not(.print-loose) li.section-head{break-after:avoid}
   .phase-num{width:30px;height:30px;font-size:17px;border-radius:8px}
   .phase-title{font-size:15pt}
   #d-title{font-size:24px}
   .highlight-card{border:2px solid #000;background:#fff !important;color:#000 !important;box-shadow:none}
   .info-card{border:1px solid #999;border-left:5px solid #000;box-shadow:none;background:#fff !important;color:#000 !important}
-  ol.steps{gap:6px}
   li.step{
     box-shadow:none;border:1px solid #999;border-radius:8px;
     padding:10px 12px;break-inside:avoid;background:#fff !important;

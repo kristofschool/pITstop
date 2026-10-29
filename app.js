@@ -300,5 +300,60 @@ function track(p){
   else window.addEventListener("load", send, {once:true});
 }
 
+/* =========================================================
+   AFDRUK — een kop van een deel blijft bij zijn eerste stap,
+   tenzij dat een extra (oneven) blad kost: 1 recto-verso is
+   beter dan 3 bladzijden. Dan laten we de kop toch los.
+   ========================================================= */
+const MM = 96/25.4, PAGE_W = 178*MM, PAGE_H = 265*MM;   // A4 min marges van 16 mm (zie @page)
+
+function printRule(){
+  for(const sheet of document.styleSheets){
+    let rules;
+    try{ rules = sheet.cssRules; }catch(e){ continue; }
+    for(const r of rules) if(r.media && r.media.mediaText === "print") return r;
+  }
+}
+
+// Blokken die niet over twee bladen gesplitst worden, in volgorde
+function printBlocks(){
+  const out = [];
+  const add = el=>{
+    const r = el.getBoundingClientRect();
+    if(r.height) out.push({top:r.top, bottom:r.bottom, head:el.classList.contains("section-head")});
+  };
+  [...document.getElementById("detail").children].forEach(el=>{
+    if(["d-info","d-steps","d-help"].includes(el.id)) [...el.children].forEach(add);
+    else add(el);
+  });
+  return out;
+}
+
+function countPages(blocks, keepHeads){
+  let pages = 1, first = 0, start = blocks.length ? blocks[0].top : 0;
+  blocks.forEach((b,i)=>{
+    if(i === first || b.bottom - start <= PAGE_H) return;
+    const j = (keepHeads && i-1 > first && blocks[i-1].head) ? i-1 : i;
+    pages++; first = j; start = blocks[j].top;
+  });
+  return pages;
+}
+
+window.addEventListener("beforeprint", ()=>{
+  const root = document.documentElement;
+  root.classList.remove("print-loose");
+  const rule = printRule();
+  if(!rule || !currentId) return;
+  // Even de afdrukstijl op het scherm toepassen om te meten
+  const wrap = document.querySelector(".wrap");
+  rule.media.mediaText = "all";
+  wrap.style.width = PAGE_W + "px";
+  const blocks = printBlocks();
+  rule.media.mediaText = "print";
+  wrap.style.width = "";
+  const strict = countPages(blocks, true), loose = countPages(blocks, false);
+  if(strict % 2 && loose < strict) root.classList.add("print-loose");
+});
+
 window.addEventListener("hashchange", route);
 route();
