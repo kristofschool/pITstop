@@ -71,7 +71,7 @@ const PLANS = [
         ]
       }
     ],
-    help:{title:"Twijfel je?", text:"Weet je niet zeker of alles veilig in iCloud staat? Vraag het eerst aan het ICT-team vóór je wist: via een bericht in Smartschool of in het ICT-lokaal."}
+    help:{title:"Twijfel je?", text:"Weet je niet zeker of alles veilig in iCloud staat? Vraag het eerst aan het ICT-team vóór je wist: maak een helpdeskticket via Smartschool of ga langs het ICT-lokaal."}
   },
   {
     id:"ipad-opnieuw-instellen",
@@ -122,7 +122,7 @@ const PLANS = [
         ]
       }
     ],
-    help:{title:"Lukt iets niet?", text:"Geen paniek. Stuur een bericht via Smartschool naar de ICT-dienst en vermeld bij welke stap je vastzit."}
+    help:{title:"Lukt iets niet?", text:"Geen paniek. Maak een helpdeskticket via Smartschool en vermeld bij welke stap je vastzit."}
   },
   {
     id:"badge-kwijt",
