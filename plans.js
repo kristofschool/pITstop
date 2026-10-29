@@ -21,6 +21,110 @@
    ========================================================= */
 const PLANS = [
   {
+    id:"ipad-wissen",
+    icon:"erase",
+    title:"iPad wissen",
+    sub:"Opslag vol of update naar iPadOS 27 lukt niet? Dit lost het op",
+    featured:"2026-11-09",
+    highlight:{
+      title:"Wanneer helpt wissen?",
+      items:[
+        "Je opslag is vol en je krijgt geen ruimte meer vrij.",
+        "Je krijgt een fout bij het zoeken naar of installeren van iPadOS-updates, bv. 'Zoeken naar updates mislukt'. Kijk na in Instellingen → Algemeen → Software-update.",
+        "<b>iPad 9?</b> Dan moet je je iPad waarschijnlijk wissen om te kunnen updaten naar iPadOS 27."
+      ]
+    },
+    info:"Na het wissen is álles weg van je iPad. Een reservekopie maken is niet nodig: die gebruiken we nooit. Controleer daarom eerst goed of alles wat je nodig hebt in iCloud staat.",
+    prep:[
+      {title:"Neem je tijd", text:"Reken op ongeveer een uur voor wissen en opnieuw instellen. Doe het niet vlak voor je je iPad nodig hebt."},
+      {title:"Wifi thuis", text:"Werk op een gewone wifi thuis, niet op een hotspot of openbaar netwerk."},
+      {title:"Lader in de buurt", text:"Laad je iPad eerst op en houd hem aan de lader tijdens het wissen en terugzetten."}
+    ],
+    sections:[
+      {
+        title:"1 — Voorbereiden",
+        intro:"Zorg dat je niets kwijtraakt: alles wat alleen op je iPad stond, is na het wissen weg.",
+        steps:[
+          {title:"Controleer of je ingelogd bent met je managed Apple ID", note:"Dat is je schoolaccount, eindigend op <b>@leerling.sjsp.be</b>. Kijk bovenaan in Instellingen bij je naam."},
+          {title:"Controleer of iCloud Drive aan staat", note:"<b>Instellingen → [je naam] → iCloud → iCloud Drive</b>."},
+          {title:"Wil je je foto's houden? Zet Foto's aan in iCloud", note:"Wacht tot alles geüpload is. Onderaan in de app Foto's zie je of het uploaden klaar is."},
+          {title:"Kijk in de Bestanden-app wat enkel 'Op mijn iPad' staat", note:"Verplaats wat je wilt houden naar <b>iCloud Drive</b> of <b>Google Drive</b>. Denk ook aan andere apps waarin je zelf werk maakt."},
+          {title:"Controleer of je Goodnotes-documenten in iCloud staan", note:"Rechtsboven zie je of je bij iCloud ingelogd bent. Een <b>wolkje met vinkje</b> (geen uitroepteken)? Dan is alles gesynchroniseerd."},
+          {title:"Ken je je schoolwachtwoord?", note:"Dat is je Google-wachtwoord van school. Je hebt het straks nodig voor Smartschool, je mail, je Apple Account, Microsoft en het Portaal.", warn:"Weet je het niet meer? Zoek dit eerst uit vóór je wist."}
+        ]
+      },
+      {
+        title:"2 — iPad wissen",
+        intro:"Alles uit deel 1 in orde? Dan kan je beginnen.",
+        steps:[
+          {title:"Ga naar Instellingen → Algemeen → Zet over of stel iPad opnieuw in", note:"Je vindt dit helemaal onderaan in <b>Algemeen</b>."},
+          {title:"Tik op 'Wis alle inhoud en instellingen'"},
+          {title:"Tik op 'Ga door' en daarna op 'Wis iPad'", note:"Voer je toegangscode in als dat gevraagd wordt. Moet je uitloggen bij je Apple Account? Geef dan het wachtwoord van je account in."},
+          {title:"Vraagt je iPad om een reservekopie? Sla die over"},
+          {title:"Wacht tot je iPad opnieuw opstart met het 'Hallo'-scherm", note:"Dit kan enkele minuten duren. Laat je iPad aan de lader hangen."}
+        ]
+      },
+      {
+        title:"3 — Daarna",
+        steps:[
+          {title:"Stel je iPad opnieuw in", note:"Volg het stappenplan om alles terug te zetten en daarna te updaten.", link:{plan:"ipad-opnieuw-instellen", label:"Ga naar 'iPad opnieuw instellen'"}}
+        ]
+      }
+    ],
+    help:{title:"Twijfel je?", text:"Weet je niet zeker of alles veilig in iCloud staat? Vraag het eerst aan het ICT-team vóór je wist: via een bericht in Smartschool of in het ICT-lokaal."}
+  },
+  {
+    id:"ipad-opnieuw-instellen",
+    icon:"restore",
+    title:"iPad opnieuw instellen",
+    sub:"Na het wissen: alles terugzetten",
+    highlight:{
+      title:"Inloggen met Google",
+      items:[
+        "Vul je schoolmail (voornaam.familienaam@leerling.sjsp.be) en je schoolwachtwoord in.",
+        "Verschijnt er een QR-code? Klik die weg, kies 'Andere manier proberen' en daarna 'Voer je wachtwoord in'."
+      ]
+    },
+    info:"Nog niet gewist? Volg eerst <a href=\"#ipad-wissen\">'iPad wissen'</a>. Houd je iPad de hele tijd aan de lader.",
+    sections:[
+      {
+        title:"1 — Opnieuw instellen",
+        intro:"Je iPad start op met 'Hallo'. Soms komen schermen in een andere volgorde of worden ze overgeslagen: dat is normaal.",
+        steps:[
+          {title:"Kies je taal en je land of regio", note:"Je iPad start op met het 'Hallo'-scherm."},
+          {title:"Kies 'Configureer zonder ander apparaat'"},
+          {title:"Maak verbinding met je wifi", note:"Je iPad maakt nu verbinding met de servers van Apple, activeert je iPad en haalt de configuratie op."},
+          {title:"Bij 'Zet je apps en gegevens over': ZET NIETS OVER", important:true, note:"Kies <b>niet</b> om apps of gegevens over te zetten, ook niet van een reservekopie."},
+          {title:"Bij 'Extern beheer': tik op 'Schrijf deze iPad in'"},
+          {title:"Log in met je schoolaccount via Google", note:"Je schoolmail (<b>@leerling.sjsp.be</b>) en je schoolwachtwoord. Verschijnt er een QR-code? Kijk bij 'Inloggen met Google' bovenaan."},
+          {title:"Zet Locatievoorzieningen aan en tik op 'Ga door' tot je op het beginscherm komt"}
+        ]
+      },
+      {
+        title:"2 — Apps en accounts",
+        intro:"Sommige apps komen vanzelf op je iPad, andere installeer je later zelf via de Student-app.",
+        steps:[
+          {title:"Stel een toegangscode in als je iPad erom vraagt", warn:"Onthoud hem goed: je hebt hem straks nog nodig.", link:{plan:"apps-installeren", label:"Meer over 'Apps installeren'"}},
+          {title:"Apple Account (iCloud)", note:"Ga naar <b>Instellingen</b>, tik linksboven op <b>Apple Account</b> en kies <b>Log handmatig in</b>. Vul je schoolmail in en log in via Google."},
+          {title:"Mail", note:"Open Mail, vul je schoolmail in en log in via Google. Tik rechtsboven op <b>Bewaar</b>, kies <b>Bescherm activiteit in Mail</b> en sta meldingen toe."},
+          {title:"Smartschool", note:"Open de app en sta meldingen toe. Vul als platform <b>sjsp.smartschool.be</b> in, kies <b>Aanmelden met Google</b> en log in."},
+          {title:"Goodnotes: inloggen", note:"Tik op <b>Ik ben student</b> als dat gevraagd wordt. Tik rechtsboven op je account → <b>Log in</b> → <b>Ga door met Apple</b> en bevestig met je toegangscode."},
+          {title:"Goodnotes: je documenten terughalen", note:"Ga naar je account → <b>Cloud en reservekopie</b>. Zet <b>Cloudsynchronisatie met iCloud</b> aan en tik op het blauwe vinkje. Wacht tot al je documenten gedownload zijn.", link:{plan:"goodnotes", label:"Documenten niet zichtbaar? Bekijk 'Goodnotes'"}},
+          {title:"Goodnotes: automatische reservekopie", note:"Ga nog eens naar <b>Cloud en reservekopie</b>, zet <b>Automatische reservekopie</b> aan, kies <b>Google Drive</b> en log in met je schoolaccount."},
+          {title:"Google Drive", note:"Open Google Drive en log in met je schoolaccount."}
+        ]
+      },
+      {
+        title:"3 — Nu updaten",
+        intro:"Daar ging het om.",
+        steps:[
+          {title:"Ga naar Instellingen → Algemeen → Software-update en installeer de nieuwste versie", note:"Houd je iPad aan de lader tot de update klaar is."}
+        ]
+      }
+    ],
+    help:{title:"Lukt iets niet?", text:"Geen paniek. Stuur een bericht via Smartschool naar de ICT-dienst en vermeld bij welke stap je vastzit."}
+  },
+  {
     id:"badge-kwijt",
     icon:"badge",
     title:"Badge kwijt",
@@ -138,110 +242,6 @@ const PLANS = [
         ]
       }
     ]
-  },
-  {
-    id:"ipad-wissen",
-    icon:"erase",
-    title:"iPad wissen",
-    sub:"Lost opslag- en updateproblemen op",
-    featured:"2026-11-09",
-    highlight:{
-      title:"Wanneer helpt wissen?",
-      items:[
-        "Je opslag is vol en je krijgt geen ruimte meer vrij.",
-        "Je krijgt een fout bij het zoeken naar of installeren van iPadOS-updates, bv. 'Zoeken naar updates mislukt'. Kijk na in Instellingen → Algemeen → Software-update.",
-        "<b>iPad 9?</b> Dan moet je je iPad waarschijnlijk wissen om te kunnen updaten naar iPadOS 27."
-      ]
-    },
-    info:"Na het wissen is álles weg van je iPad. Een reservekopie maken is niet nodig: die gebruiken we nooit. Controleer daarom eerst goed of alles wat je nodig hebt in iCloud staat.",
-    prep:[
-      {title:"Neem je tijd", text:"Reken op ongeveer een uur voor wissen en opnieuw instellen. Doe het niet vlak voor je je iPad nodig hebt."},
-      {title:"Wifi thuis", text:"Werk op een gewone wifi thuis, niet op een hotspot of openbaar netwerk."},
-      {title:"Lader in de buurt", text:"Laad je iPad eerst op en houd hem aan de lader tijdens het wissen en terugzetten."}
-    ],
-    sections:[
-      {
-        title:"1 — Voorbereiden",
-        intro:"Zorg dat je niets kwijtraakt: alles wat alleen op je iPad stond, is na het wissen weg.",
-        steps:[
-          {title:"Controleer of je ingelogd bent met je managed Apple ID", note:"Dat is je schoolaccount, eindigend op <b>@leerling.sjsp.be</b>. Kijk bovenaan in Instellingen bij je naam."},
-          {title:"Controleer of iCloud Drive aan staat", note:"<b>Instellingen → [je naam] → iCloud → iCloud Drive</b>."},
-          {title:"Wil je je foto's houden? Zet Foto's aan in iCloud", note:"Wacht tot alles geüpload is. Onderaan in de app Foto's zie je of het uploaden klaar is."},
-          {title:"Kijk in de Bestanden-app wat enkel 'Op mijn iPad' staat", note:"Verplaats wat je wilt houden naar <b>iCloud Drive</b> of <b>Google Drive</b>. Denk ook aan andere apps waarin je zelf werk maakt."},
-          {title:"Controleer of je Goodnotes-documenten in iCloud staan", note:"Rechtsboven zie je of je bij iCloud ingelogd bent. Een <b>wolkje met vinkje</b> (geen uitroepteken)? Dan is alles gesynchroniseerd."},
-          {title:"Ken je je schoolwachtwoord?", note:"Dat is je Google-wachtwoord van school. Je hebt het straks nodig voor Smartschool, je mail, je Apple Account, Microsoft en het Portaal.", warn:"Weet je het niet meer? Zoek dit eerst uit vóór je wist."}
-        ]
-      },
-      {
-        title:"2 — iPad wissen",
-        intro:"Alles uit deel 1 in orde? Dan kan je beginnen.",
-        steps:[
-          {title:"Ga naar Instellingen → Algemeen → Zet over of stel iPad opnieuw in", note:"Je vindt dit helemaal onderaan in <b>Algemeen</b>."},
-          {title:"Tik op 'Wis alle inhoud en instellingen'"},
-          {title:"Tik op 'Ga door' en daarna op 'Wis iPad'", note:"Voer je toegangscode in als dat gevraagd wordt. Moet je uitloggen bij je Apple Account? Geef dan het wachtwoord van je account in."},
-          {title:"Vraagt je iPad om een reservekopie? Sla die over"},
-          {title:"Wacht tot je iPad opnieuw opstart met het 'Hallo'-scherm", note:"Dit kan enkele minuten duren. Laat je iPad aan de lader hangen."}
-        ]
-      },
-      {
-        title:"3 — Daarna",
-        steps:[
-          {title:"Stel je iPad opnieuw in", note:"Volg het stappenplan om alles terug te zetten en daarna te updaten.", link:{plan:"ipad-opnieuw-instellen", label:"Ga naar 'iPad opnieuw instellen'"}}
-        ]
-      }
-    ],
-    help:{title:"Twijfel je?", text:"Weet je niet zeker of alles veilig in iCloud staat? Vraag het eerst aan het ICT-team vóór je wist: via een bericht in Smartschool of in het ICT-lokaal."}
-  },
-  {
-    id:"ipad-opnieuw-instellen",
-    icon:"restore",
-    title:"iPad opnieuw instellen",
-    sub:"Na het wissen: alles terugzetten",
-    highlight:{
-      title:"Inloggen met Google",
-      items:[
-        "Vul je schoolmail (voornaam.familienaam@leerling.sjsp.be) en je schoolwachtwoord in.",
-        "Verschijnt er een QR-code? Klik die weg, kies 'Andere manier proberen' en daarna 'Voer je wachtwoord in'."
-      ]
-    },
-    info:"Nog niet gewist? Volg eerst <a href=\"#ipad-wissen\">'iPad wissen'</a>. Houd je iPad de hele tijd aan de lader.",
-    sections:[
-      {
-        title:"1 — Opnieuw instellen",
-        intro:"Je iPad start op met 'Hallo'. Soms komen schermen in een andere volgorde of worden ze overgeslagen: dat is normaal.",
-        steps:[
-          {title:"Kies je taal en je land of regio", note:"Je iPad start op met het 'Hallo'-scherm."},
-          {title:"Kies 'Configureer zonder ander apparaat'"},
-          {title:"Maak verbinding met je wifi", note:"Je iPad maakt nu verbinding met de servers van Apple, activeert je iPad en haalt de configuratie op."},
-          {title:"Bij 'Zet je apps en gegevens over': ZET NIETS OVER", important:true, note:"Kies <b>niet</b> om apps of gegevens over te zetten, ook niet van een reservekopie."},
-          {title:"Bij 'Extern beheer': tik op 'Schrijf deze iPad in'"},
-          {title:"Log in met je schoolaccount via Google", note:"Je schoolmail (<b>@leerling.sjsp.be</b>) en je schoolwachtwoord. Verschijnt er een QR-code? Kijk bij 'Inloggen met Google' bovenaan."},
-          {title:"Zet Locatievoorzieningen aan en tik op 'Ga door' tot je op het beginscherm komt"}
-        ]
-      },
-      {
-        title:"2 — Apps en accounts",
-        intro:"Sommige apps komen vanzelf op je iPad, andere installeer je later zelf via de Student-app.",
-        steps:[
-          {title:"Stel een toegangscode in als je iPad erom vraagt", warn:"Onthoud hem goed: je hebt hem straks nog nodig.", link:{plan:"apps-installeren", label:"Meer over 'Apps installeren'"}},
-          {title:"Apple Account (iCloud)", note:"Ga naar <b>Instellingen</b>, tik linksboven op <b>Apple Account</b> en kies <b>Log handmatig in</b>. Vul je schoolmail in en log in via Google."},
-          {title:"Mail", note:"Open Mail, vul je schoolmail in en log in via Google. Tik rechtsboven op <b>Bewaar</b>, kies <b>Bescherm activiteit in Mail</b> en sta meldingen toe."},
-          {title:"Smartschool", note:"Open de app en sta meldingen toe. Vul als platform <b>sjsp.smartschool.be</b> in, kies <b>Aanmelden met Google</b> en log in."},
-          {title:"Goodnotes: inloggen", note:"Tik op <b>Ik ben student</b> als dat gevraagd wordt. Tik rechtsboven op je account → <b>Log in</b> → <b>Ga door met Apple</b> en bevestig met je toegangscode."},
-          {title:"Goodnotes: je documenten terughalen", note:"Ga naar je account → <b>Cloud en reservekopie</b>. Zet <b>Cloudsynchronisatie met iCloud</b> aan en tik op het blauwe vinkje. Wacht tot al je documenten gedownload zijn.", link:{plan:"goodnotes", label:"Documenten niet zichtbaar? Bekijk 'Goodnotes'"}},
-          {title:"Goodnotes: automatische reservekopie", note:"Ga nog eens naar <b>Cloud en reservekopie</b>, zet <b>Automatische reservekopie</b> aan, kies <b>Google Drive</b> en log in met je schoolaccount."},
-          {title:"Google Drive", note:"Open Google Drive en log in met je schoolaccount."}
-        ]
-      },
-      {
-        title:"3 — Nu updaten",
-        intro:"Daar ging het om.",
-        steps:[
-          {title:"Ga naar Instellingen → Algemeen → Software-update en installeer de nieuwste versie", note:"Houd je iPad aan de lader tot de update klaar is."}
-        ]
-      }
-    ],
-    help:{title:"Lukt iets niet?", text:"Geen paniek. Stuur een bericht via Smartschool naar de ICT-dienst en vermeld bij welke stap je vastzit."}
   },
   {
     id:"ipad-configuratie",
